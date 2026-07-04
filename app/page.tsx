@@ -1,58 +1,41 @@
-import { DeployButton } from "@/components/deploy-button";
-import { EnvVarWarning } from "@/components/env-var-warning";
-import { AuthButton } from "@/components/auth-button";
-import { Hero } from "@/components/hero";
-import { ThemeSwitcher } from "@/components/theme-switcher";
-import { ConnectSupabaseSteps } from "@/components/tutorial/connect-supabase-steps";
-import { SignUpUserSteps } from "@/components/tutorial/sign-up-user-steps";
-import { hasEnvVars } from "@/lib/utils";
-import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense } from 'react';
+import { YieldEstimator } from '@/components/YieldEstimator';
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center">
-      <div className="flex-1 w-full flex flex-col gap-20 items-center">
-        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-          <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-            <div className="flex gap-5 items-center font-semibold">
-              <Link href={"/"}>Next.js Supabase Starter</Link>
-              <div className="flex items-center gap-2">
-                <DeployButton />
-              </div>
-            </div>
-            {!hasEnvVars ? (
-              <EnvVarWarning />
-            ) : (
-              <Suspense>
-                <AuthButton />
-              </Suspense>
-            )}
-          </div>
+    <main className="min-h-screen">
+      <header className="bg-white border-b-2 border-gray-100 p-6 flex justify-between items-center sticky top-0 z-50">
+        <h1 className="text-2xl font-serif font-bold text-[#C56A3C]">ShearPrecision Wales</h1>
+        <nav className="flex gap-4">
+          <a href="#services" className="text-sm font-bold">Services</a>
+          <a href="#about" className="text-sm font-bold">About</a>
+          <a href="/booking" className="bg-[#C56A3C] text-white px-4 py-2 rounded text-sm font-bold">Book Now</a>
         </nav>
-        <div className="flex-1 flex flex-col gap-20 max-w-5xl p-5">
-          <Hero />
-          <main className="flex-1 flex flex-col gap-6 px-4">
-            <h2 className="font-medium text-xl mb-4">Next steps</h2>
-            {hasEnvVars ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-          </main>
-        </div>
+      </header>
 
-        <footer className="w-full flex items-center justify-center border-t mx-auto text-center text-xs gap-8 py-16">
-          <p>
-            Powered by{" "}
-            <a
-              href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-              target="_blank"
-              className="font-bold hover:underline"
-              rel="noreferrer"
-            >
-              Supabase
-            </a>
-          </p>
-          <ThemeSwitcher />
-        </footer>
-      </div>
+      <section className="py-20 px-6 max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h1 className="text-5xl font-serif mb-6 leading-tight">Professional Shearing, Right at Your Gate.</h1>
+          <p className="text-lg mb-8 text-gray-700">We bring precision, animal welfare, and punctuality to your smallholding or commercial farm. No-fuss, expert shearing services across South Wales.</p>
+          <div className="flex gap-4">
+            <a href="/booking" className="bg-[#C56A3C] text-white px-8 py-4 rounded font-bold">Check Availability</a>
+          </div>
+        </div>
+        <Suspense fallback={<div>Loading calculator...</div>}>
+          <YieldEstimator />
+        </Suspense>
+      </section>
+
+      <section id="about" className="bg-white py-20 px-6">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-4xl font-serif mb-6">Shearing Done Right. No Compromises.</h2>
+          <p className="text-lg text-gray-600 leading-relaxed">Founded in Cardiff, ShearPrecision was built on a simple premise: sheep deserve stress-free handling, and farmers deserve a service that shows up on time. We don’t just shear; we respect the tradition of Welsh agriculture while using modern techniques to improve your flock’s productivity.</p>
+        </div>
+      </section>
+      
+      <footer className="py-12 text-center text-sm text-gray-500">
+        © 2026 ShearPrecision Wales. Precision shearing for South Wales farmers.
+      </footer>
     </main>
   );
 }
